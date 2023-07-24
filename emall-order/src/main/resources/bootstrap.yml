@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 39.107.45.29:8848
+        file-extension: yml
+        shared-dataids: emall-nacos.yml
+        refreshable-dataids: emall-nacos.yml
+  application:
+    name: emall-order
+  profiles:
+    active: dev

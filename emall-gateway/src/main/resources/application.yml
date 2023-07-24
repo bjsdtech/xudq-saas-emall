@@ -1,0 +1,53 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: emall-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: emall-authcenter
+          uri: lb://emall-authcenter
+          predicates:
+            - Path=/oauth/**
+        - id: emall-member
+          uri: lb://emall-member
+          predicates:
+            - Path=/sso/**,/member/**
+        - id: emall-order
+          uri: lb://emall-order
+          predicates:
+            - Path=/cart/**,/order/**
+        - id: emall-product
+          uri: lb://emall-product
+          predicates:
+            - Path=/pms/**
+        - id: emall-coupons
+          uri: lb://emall-coupons
+          predicates:
+            - Path=/coupon/**
+    nacos:
+      discovery:
+        server-addr: 192.168.159.8:8848
+
+management: #开启SpringBoot Admin的监控
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
+
+tuling:
+  gateway:
+    shouldSkipUrls:
+      - /oauth/**
+      - /sso/**

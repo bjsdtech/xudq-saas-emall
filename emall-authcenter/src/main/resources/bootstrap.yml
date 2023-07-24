@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: emall-authcenter
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 39.107.45.29:8848
+        file-extension: yml
+        shared-dataids: emall-db-common.yml,emall-nacos.yml
+        refreshable-dataids: emall-db-common.yml,emall-nacos.yml
+logging:
+  level:
+    com:
+     alibaba:
+      cloud:
+        nacos:
+          client: warn
